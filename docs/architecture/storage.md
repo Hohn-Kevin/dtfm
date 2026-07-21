@@ -12,7 +12,13 @@ Stores or references original bytes according to host policy. Content-addressed 
 
 Stores canonical metadata, segments, artifacts, assertions, provenance, processing runs, review decisions, and configuration fingerprints.
 
-The baseline implementation should use SQLite because it is local, transactional, portable, embeddable, and suitable for desktop and self-hosted use. The persistence interfaces must not expose SQLite-specific behavior to the domain model.
+SQLite is the baseline relational store adapter because it is local, transactional, portable, embeddable, and suitable for desktop and self-hosted use. It is not mandatory for every deployment.
+
+Persistence interfaces must not expose SQLite-specific behavior to the domain model. A compatible relational adapter may replace SQLite completely for an installation when its transaction, migration, integrity, and isolation guarantees satisfy the same contracts.
+
+Each DTFM installation or workspace has exactly one authoritative canonical relational store. Running SQLite beside another canonical adapter as an independent second source of truth is not supported.
+
+Host-owned business records remain outside the canonical DTFM store unless a future accepted specification explicitly defines otherwise. Hosts reference DTFM records through stable identifiers and may maintain rebuildable projections for their own workflows.
 
 ### Blob store
 
@@ -26,14 +32,21 @@ Provides lexical search over extracted and normalized text. The baseline may use
 
 Stores optional embeddings and nearest-neighbor indexes. It is a replaceable projection, not a canonical database. DTFM must function without it.
 
+## Canonical ownership
+
+Canonical DTFM state includes provenance, processing history, review decisions, and the current status of assertions and artifacts. Export packages, host-side tables, caches, full-text indexes, vector indexes, and generated reports are projections unless an accepted specification states otherwise.
+
+A projection must not accept independent changes that silently contradict canonical DTFM state. Corrections enter through the review or integration contracts and create provenance-bearing canonical records.
+
 ## Consistency rules
 
 - Canonical relational writes and processing-state transitions must be transactional.
 - Index failures must not corrupt canonical records.
-- Specialized indexes must be rebuildable.
+- Specialized indexes and host projections must be rebuildable or explicitly marked as externally owned.
 - Deleting a source must follow an explicit retention policy and remove or tombstone dependent projections consistently.
 - Hashes identify byte equality, not semantic equality.
 - Database backups must be possible without external services.
+- Adapter changes require an explicit migration path and verification before the new store becomes authoritative.
 
 ## Multi-tenant and host isolation
 
