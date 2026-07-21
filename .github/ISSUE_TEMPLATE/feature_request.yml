@@ -1,0 +1,53 @@
+name: Feature request
+description: Propose a documented capability or improvement
+title: "proposal: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Describe the user or engineering problem without prescribing a solution.
+    validations:
+      required: true
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: Explain who needs this and provide a concrete scenario using synthetic data.
+    validations:
+      required: true
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Proposed requirements
+      description: List observable behavior and acceptance criteria.
+    validations:
+      required: true
+  - type: textarea
+    id: non_goals
+    attributes:
+      label: Non-goals
+      description: State what should remain outside the scope.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: textarea
+    id: risks
+    attributes:
+      label: Security, privacy, and compatibility risks
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and documentation.
+          required: true
+        - label: The proposal does not contain private or confidential data.
+          required: true
