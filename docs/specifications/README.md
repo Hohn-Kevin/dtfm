@@ -2,6 +2,19 @@
 
 Specifications define the normative behavior of DTFM.
 
+## Phase 3 drafts
+
+- [0001: Public contracts](0001-public-contracts.md)
+- [0002: Source ingestion](0002-source-ingestion.md)
+- [0003: Processing runs](0003-processing-runs.md)
+- [0004: Processor contract](0004-processor-contract.md)
+- [0005: Provenance and assertions](0005-provenance-and-assertions.md)
+- [0006: Review decisions](0006-review-decisions.md)
+
+These drafts establish the first implementation boundary. They are not accepted until reviewed together for consistency and testability.
+
+## Required structure
+
 A specification should include:
 
 - problem statement;
